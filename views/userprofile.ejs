@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/style.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <title>User Profile</title>
+</head>
+
+<body>
+    <header class="header">
+        <a href="/" class="logo"></a>
+        <nav class="navbar">
+            <a href="/">Home</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+    <section class="main-body">
+        <div class="container mt-4">
+            <div class="jumbotron">
+                <h1 class="display-4">Hello, world!</h1>
+                <h4>My email is - <%= email_id %>
+                </h4>
+                <h5>my user type is - <%= usertype %>
+                </h5>
+                <p class="lead">
+                    This is a simple hero unit, a simple jumbotron-style component for
+                    calling extra attention to featured content or information.
+                </p>
+                <hr class="my-4" />
+                <p>
+                    It uses utility classes for typography and spacing to space content
+                    out within the larger container.
+                </p>
+                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="user-profile text-center">
+                        <h1>User Profile</h1>
+                        <!-- Add Bootstrap modal trigger button -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#transactionModal">
+                            Transaction
+                        </button>
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loanModal">
+                            Apply for Loan
+                        </button>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#profileModal"
+                            id="see-profile-button">
+                            See Profile
+                        </button>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#updateUserModal">
+                            Update Profile
+                        </button>
+                        <button type="button" class="btn btn-success" data-toggle="modal"
+                            data-target="#changePasswordModal">
+                            Change Password
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap Modal -->
+        <div class="modal fade" id="transactionModal" tabindex="-1" role="dialog"
+            aria-labelledby="transactionModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-3d" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="transactionModalLabel">
+                            Transaction Form
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Transaction Form -->
+                        <form id="transaction-form">
+                            <div class="form-group">
+                                <label for="amount">Amount:</label>
+                                <input type="number" class="form-control" id="amount" name="amount" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="transaction-type">Transaction Type:</label>
+                                <select class="form-control" id="transaction-type" name="transaction-type">
+                                    <option value="credit">Credit</option>
+                                    <option value="debit">Debit</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="button" class="btn btn-primary" id="submit-button">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Loan Application Modal -->
+        <div class="modal fade" id="loanModal" tabindex="-1" role="dialog" aria-labelledby="loanModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-3d" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loanModalLabel">
+                            Loan Application Form
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Loan Application Form -->
+                        <form id="loan-form">
+                            <div class="form-group">
+                                <label for="account-number">Account Number:</label>
+                                <input type="text" class="form-control" id="account-number" name="account-number"
+                                    required />
+                            </div>
+                            <div class="form-group">
+                                <label for="loan-amount">Amount:</label>
+                                <input type="number" class="form-control" id="loan-amount" name="loan-amount"
+                                    step="0.01" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="loan-purpose">Purpose (max 2500 words):</label>
+                                <textarea class="form-control" id="loan-purpose" name="loan-purpose" rows="5"
+                                    maxlength="2500" required></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="button" class="btn btn-success" id="apply-loan-button">
+                            Apply for Loan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Update User Modal -->
+        <div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="updateUserModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-3d" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateUserModalLabel">
+                            Update User Information
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Update User Form -->
+                        <form id="update-user-form">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" class="form-control" id="name" name="name" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="email_id">Email ID:</label>
+                                <input type="text" class="form-control" id="email_id" name="email_id" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label for="phone_no">Phone Number:</label>
+                                <input type="text" class="form-control" id="phone_no" name="phone_no" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="account_no">Account Number:</label>
+                                <input type="text" class="form-control" id="account_no" name="account_no" readonly />
+                            </div>
+                
+                            <div class="form-group">
+                                <label for="role">Role:</label>
+                                <input type="text" class="form-control" id="role" name="role" readonly />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="button" class="btn btn-primary" id="update-user-button">
+                            Update User
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- See Profile Modal -->
+        <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-3d" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="profileModalLabel">User Profile</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Profile Details -->
+                        <ul>
+                            <li><strong>Name:</strong> <span id="profile-name"></span></li>
+                            <li>
+                                <strong>Account Number:</strong>
+                                <span id="profile-account-no"></span>
+                            </li>
+                            <li>
+                                <strong>Email ID:</strong> <span id="profile-email"></span>
+                            </li>
+                            <li>
+                                <strong>Balance:</strong> <span id="profile-balance"></span>
+                            </li>
+                            <li>
+                                <strong>Phone Number:</strong>
+                                <span id="profile-phone-no"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Change Password Modal -->
+        <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog"
+            aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-3d" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="changePasswordModalLabel">
+                            Change Password
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Change Password Form -->
+                        <form action="/changepassword" method="post" id="change-password-form">
+                            <div class="form-group">
+                                <label for="old_password">Old Password:</label>
+                                <input type="password" class="form-control" id="old_password" name="old_password"
+                                    required />
+                            </div>
+                            <div class="form-group">
+                                <label for="new_password">New Password:</label>
+                                <input type="password" class="form-control" id="new_password" name="new_password"
+                                    required />
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm_password">Confirm Password:</label>
+                                <input type="password" class="form-control" id="confirm_password"
+                                    name="confirm_password" required />
+                            </div>
+                            <div>
+                                <input type="button" class="btn btn-secondary" data-dismiss="modal" />
+                                <input type="submit" class="btn btn-primary" id="change-password-button" />
+                            </div>
+                            <!-- <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Close
+                                </button>
+                                <button type="button" class="btn btn-primary" id="change-password-button">
+                                    Change Password
+                                </button>
+                            </div> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="footer-basic">
+        <footer>
+            <div class="social">
+                <a href="https://www.facebook.com/profile.php?id=100024471012714"><i class="bx bxl-facebook"></i></a>
+                <a href="https://www.instagram.com/himanshug9119/"><i class="bx bxl-instagram"></i></a>
+                <a href="https://twitter.com/himanshug9119"><i class="bx bxl-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/himanshug9119/"><i class="bx bxl-linkedin"></i></a>
+                <a href="https://wa.link/zwprrn"><i class="bx bxl-whatsapp"></i></a>
+            </div>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="/">Home</a></li>
+                <li class="list-inline-item"><a href="#">Services</a></li>
+                <li class="list-inline-item"><a href="/about">About</a></li>
+                <li class="list-inline-item"><a href="#">Other Projects</a></li>
+            </ul>
+            <p class="copyright">Bank © 2023</p>
+        </footer>
+    </div>
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="./script1.js"></script>
+    <!-- <script src="./script.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script>
+        // document.addEventListener("DOMContentLoaded", () => {
+        //     const seeProfileButton = document.getElementById("see-profile-button");
+        //     const profileDetails = document.querySelector(".profile-details");
+
+        //     seeProfileButton.addEventListener("click", () => {
+        //         // Make an AJAX request to retrieve user profile data
+        //         fetch("/profile", {
+        //             mathod: "GET",
+        //             headers: {
+        //                 "Content-Type": "application/json",
+        //             },
+        //         })
+        //             .then((response) => response.json())
+        //             .then((data) => {
+        //                 // Display user profile data
+        //                 // console.log(data);
+        //                 document.getElementById("profile-account-no").textContent =
+        //                     data.account_number;
+        //                 document.getElementById("profile-name").textContent = data.name;
+        //                 // document.getElementById("profile-role").textContent =
+        //                 //     data.balance;
+        //                 document.getElementById("profile-email").textContent =
+        //                     data.email_id;
+        //                 document.getElementById("profile-balance").textContent =
+        //                     data.balance;
+        //                 document.getElementById("profile-phone-no").textContent =
+        //                     data.phone_no;
+        //                 // Show the profile details section
+        //                 profileDetails.style.display = "block";
+        //             })
+        //             .catch((error) => {
+        //                 console.error("Error fetching profile data:", error);
+        //             });
+        //     });
+        // });
+        document.addEventListener("DOMContentLoaded", () => {
+            const updateButton = document.getElementById("update-user-button");
+            const updateForm = document.getElementById("update-user-form");
+            const nameInput = document.getElementById("name");
+            const phoneInput = document.getElementById("phone_no");
+
+            // Function to open the update modal
+            const openUpdateModal = () => {
+                // You can fetch the initial data from the server here and populate the fields
+                // For example:
+                fetch("/profile")
+                    .then((response) => response.json())
+                    .then((data) => {
+                        document.getElementById("account-no").textContent =
+                            data.account_number;
+                        document.getElementById("name").textContent = data.name;
+                        // document.getElementById("profile-role").textContent =
+                        //     data.balance;
+                        document.getElementById("email_id").textContent =
+                            data.email_id;
+                        document.getElementById("phone_no").textContent =
+                            data.phone_no;
+                        nameInput.value = data.name;
+                        phoneInput.value = data.phone_no;
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching user data:", error);
+                    });
+
+                // Show the update modal
+                $('#updateUserModal').modal('show');
+            };
+
+            // Event listener for opening the update modal
+            updateButton.addEventListener("click", openUpdateModal);
+
+            // Event listener for form submission
+            updateForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+
+                // Get the updated name and phone number from the form
+                const updatedName = nameInput.value;
+                const updatedPhone = phoneInput.value;
+
+                // You can send the updated data to the server here
+                // For example:
+                fetch("/updateData", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: updatedName,
+                        phone_no: updatedPhone,
+                    }),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        // Handle the server's response, e.g., show a success message
+                        console.log("User data updated successfully:", data);
+                    })
+                    .catch((error) => {
+                        console.error("Error updating user data:", error);
+                    });
+
+                // Close the update modal
+                $('#updateUserModal').modal('hide');
+            });
+        });
+    </script>
+</body>
+</html>
