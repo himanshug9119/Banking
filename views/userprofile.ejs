@@ -57,7 +57,7 @@
                             Apply for Loan
                         </button>
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#profileModal"
-                            id="see-profile-button">
+                            id="see-profile-button" action="/profile">
                             See Profile
                         </button>
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#updateUserModal">
@@ -72,7 +72,7 @@
             </div>
         </div>
 
-        <!-- Bootstrap Modal -->
+        <!-- Transaction Modal -->
         <div class="modal fade" id="transactionModal" tabindex="-1" role="dialog"
             aria-labelledby="transactionModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-3d" role="document">
@@ -220,20 +220,20 @@
                     <div class="modal-body">
                         <!-- Profile Details -->
                         <ul>
-                            <li><strong>Name:</strong> <span id="profile-name"></span></li>
+                            <li><strong>Name:</strong> <span id="name"></span></li>
                             <li>
                                 <strong>Account Number:</strong>
-                                <span id="profile-account-no"></span>
+                                <span id="account_no"></span>
                             </li>
                             <li>
-                                <strong>Email ID:</strong> <span id="profile-email"></span>
+                                <strong>Email ID:</strong> <span id="email_id"></span>
                             </li>
                             <li>
-                                <strong>Balance:</strong> <span id="profile-balance"></span>
+                                <strong>Balance:</strong> <span id="balance"></span>
                             </li>
                             <li>
                                 <strong>Phone Number:</strong>
-                                <span id="profile-phone-no"></span>
+                                <span id="phone-no"></span>
                             </li>
                         </ul>
                     </div>
@@ -322,41 +322,41 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <script>
-        // document.addEventListener("DOMContentLoaded", () => {
-        //     const seeProfileButton = document.getElementById("see-profile-button");
-        //     const profileDetails = document.querySelector(".profile-details");
+        document.addEventListener("DOMContentLoaded", () => {
+            const seeProfileButton = document.getElementById("see-profile-button");
+            const profileDetails = document.querySelector(".profile-details");
 
-        //     seeProfileButton.addEventListener("click", () => {
-        //         // Make an AJAX request to retrieve user profile data
-        //         fetch("/profile", {
-        //             mathod: "GET",
-        //             headers: {
-        //                 "Content-Type": "application/json",
-        //             },
-        //         })
-        //             .then((response) => response.json())
-        //             .then((data) => {
-        //                 // Display user profile data
-        //                 // console.log(data);
-        //                 document.getElementById("profile-account-no").textContent =
-        //                     data.account_number;
-        //                 document.getElementById("profile-name").textContent = data.name;
-        //                 // document.getElementById("profile-role").textContent =
-        //                 //     data.balance;
-        //                 document.getElementById("profile-email").textContent =
-        //                     data.email_id;
-        //                 document.getElementById("profile-balance").textContent =
-        //                     data.balance;
-        //                 document.getElementById("profile-phone-no").textContent =
-        //                     data.phone_no;
-        //                 // Show the profile details section
-        //                 profileDetails.style.display = "block";
-        //             })
-        //             .catch((error) => {
-        //                 console.error("Error fetching profile data:", error);
-        //             });
-        //     });
-        // });
+            seeProfileButton.addEventListener("click", () => {
+                // Make an AJAX request to retrieve user profile data
+                fetch("/profile", {
+                    mathod: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        // Display user profile data
+                        // console.log(data);
+                        document.getElementById("account_no").textContent =
+                            data.account_number;
+                        document.getElementById("name").textContent = data.name;
+                        // document.getElementById("profile-role").textContent =
+                        //     data.balance;
+                        document.getElementById("email").textContent =
+                            data.email_id;
+                        document.getElementById("balance").textContent =
+                            data.balance;
+                        document.getElementById("phone_no").textContent =
+                            data.phone_no;
+                        // Show the profile details section
+                        profileDetails.style.display = "block";
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching profile data:", error);
+                    });
+            });
+        });
         document.addEventListener("DOMContentLoaded", () => {
             const updateButton = document.getElementById("update-user-button");
             const updateForm = document.getElementById("update-user-form");

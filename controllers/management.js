@@ -84,6 +84,12 @@ exports.profiledata = async (req, res, next) => {
     });
   } catch (err) {
     console.error("Error occurred in profiledata middleware", err);
+
+    // Check if the error is due to JWT expiration
+    if (error.name === "TokenExpiredError") {
+      // Redirect the user to the login page
+      return res.redirect("/login");
+    }
     return res.status(500).send("Error in profiledata middleware");
   }
 };

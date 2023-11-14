@@ -49,22 +49,22 @@ const userProfile = {
 };
 
 // Route to render the profile page
-// router.get("/profile", (req, res) => {
-//   // console.log(req.user);
-//   res.send(userProfile);
-// });
-router.get(
-  "/profile",
-  authController.isLoggedIn,
-  managementController.profiledata,
-  (req, res) => {
-    const profileData = req.profiledata;
-    // console.log(profileData);
-    // console.log("Himanshu Gupta")
-    // res.json(profileData)
-    res.send(profileData);
-  }
-);
+router.get("/profile", (req, res) => {
+  console.log(req.user);
+  res.send(userProfile);
+});
+// router.get(
+//   "/profile",
+//   authController.isLoggedIn,
+//   managementController.profiledata,
+//   (req, res) => {
+//     const profileData = req.profiledata;
+//     console.log(profileData);
+//     console.log("Himanshu Gupta")
+//     res.json(profileData)
+//     res.send(profileData);
+//   }
+// );
 
 router.post(
   "/changepassword",

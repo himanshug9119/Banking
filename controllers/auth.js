@@ -3,11 +3,12 @@ const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const db = require("../db/db_config");
-
-const path = "C:/Users/Himanshu Gupta/Desktop/Projects/Bank/";
+// const path = __dirname;
+// console.log(path);
+const path = "C:\Users\Himanshu Gupta\Desktop\Projects\Bank";
 const times = 8;
 const JWT_SECRET = "hjdsfhdkjsfh8732fsjkghfjk";
-const JWT_EXPIRES_IN = "1d"; // Use a valid time format here, e.g., "1d" for 1 day
+const JWT_EXPIRES_IN = "10m"; // Use a valid time format here, e.g., "1d" for 1 day
 const JWT_COOKIE_EXPIRES = 1;
 
 exports.login = async (req, res) => {
@@ -22,9 +23,7 @@ exports.login = async (req, res) => {
             console.log(results);
             if (!results || !(await bcrypt.compare(password, results[0].password))) {
                 console.log("Email or Password is incorrect");
-                res.status(401).sendFile(path + "public/login.html", {
-                    message: "Email or Password is incorrect",
-                });
+                res.redirect("/login");
             } else {
                 // const id = results[0].id;
                 const token = jwt.sign({ id:email_id }, JWT_SECRET, {
@@ -241,12 +240,11 @@ exports.isLoggedIn = async (req, res, next) => {
 };
 
 
-// change password
 const queryAsync = promisify(db.query).bind(db);
+
 exports.changepassword = async (req, res) => {
   try {
     const { old_password, new_password, confirm_password } = req.body;
-    // console.log(req.user.role);
     const decoded = await promisify(jwt.verify)(
       req.cookies.userSave,
       JWT_SECRET
@@ -264,6 +262,7 @@ exports.changepassword = async (req, res) => {
       "SELECT password FROM password_manager WHERE email_id = ?",
       [email_id]
     );
+
     if (
       !existingUser ||
       !(await bcrypt.compare(old_password, existingUser.password))
@@ -271,7 +270,7 @@ exports.changepassword = async (req, res) => {
       return res.status(401).send("Old password entered by you is not correct");
     }
 
-    const hashedPassword = await bcrypt.hash(new_password, times); // Use an appropriate number of hashing rounds
+    const hashedPassword = await bcrypt.hash(new_password, times);
 
     await queryAsync(
       "UPDATE password_manager SET password = ? WHERE email_id = ?",
@@ -281,10 +280,16 @@ exports.changepassword = async (req, res) => {
     return res.status(200).send("Password changed successfully");
   } catch (error) {
     console.error("An error occurred:", error);
+
+    // Check if the error is due to JWT expiration
+    if (error.name === "TokenExpiredError") {
+      // Redirect the user to the login page
+      return res.redirect("/login");
+    }
+
     return res.status(500).send("Some error occurred");
   }
 };
-
 
 
 
